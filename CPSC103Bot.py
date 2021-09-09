@@ -68,15 +68,6 @@ async def on_raw_reaction_add(payload):
         if payload.emoji.name == "❌":
             await role_removal(payload.member, colour_list)
 
-@bot.event
-async def on_message(message):
-    if message.content == "!start":
-        embedVar = discord.Embed(title="This is where you obtain colours", description="", color=0x123456)
-        embedVar.add_field(name="Simply react using the colour you want and you will receive that colour",
-                               value="\u200b",
-                               inline=False)
-        await message.channel.send(embed=embedVar)
-
 
 @bot.event
 async def on_member_join(member):
