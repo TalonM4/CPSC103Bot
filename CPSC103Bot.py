@@ -73,8 +73,8 @@ async def on_message(message):
     if message.channel.id == 885539737291587614:
         if message.content == "!start up":
             embedVar = discord.Embed(title="This is where you obtain colours", description="", color=0x123456)
-            embedVar.add_field(name="Simply react using the colour you want and you will recieve that colour",
-                               value="",
+            embedVar.add_field(name="Simply react using the colour you want and you will receive that colour",
+                               value="Cool colours wooooo!!!",
                                inline=False)
             await message.channel.send(embed=embedVar)
 
