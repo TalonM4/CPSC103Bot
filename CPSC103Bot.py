@@ -24,7 +24,7 @@ async def role_removal(member, role_name_list):
 
 
 async def role_addition(member, role_name):
-    get_role(get_role(role_name))
+    get_role(role_name)
     await member.add_roles()
 
 
