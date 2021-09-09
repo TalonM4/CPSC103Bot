@@ -15,20 +15,21 @@ def get_role(role_name):
     return role
 
 
-def role_removal(member, role_name_list):
+async def role_removal(member, role_name_list):
     roles = []
     for role_name in role_name_list:
         roles.append(get_role(role_name))
     await member.remove_roles(*roles)
 
 
-def role_addition(member, role_name):
+async def role_addition(member, role_name):
     get_role(get_role(role_name))
     await member.add_roles()
 
-def role_remove_all_and_add(member, role_name):
-    role_removal(member, colour_list)
-    role_addition(member, role_name)
+
+async def role_remove_all_and_add(member, role_name):
+    await role_removal(member, colour_list)
+    await role_addition(member, role_name)
 
 
 @bot.event
@@ -47,26 +48,27 @@ async def on_raw_reaction_add(payload):
     if payload.channel_id == 885539737291587614:
         # this is a red square
         if payload.emoji.name == "🟥":
-            role_remove_all_and_add(payload.member, "Red")
+            await role_remove_all_and_add(payload.member, "Red")
 
         # this is a purple square
         if payload.emoji.name == "🟪":
-            role_remove_all_and_add(payload.member, "Purple")
+            await role_remove_all_and_add(payload.member, "Purple")
 
         # this is a yellow square
         if payload.emoji.name == "🟨":
-            role_remove_all_and_add(payload.member, "Yellow")
+            await role_remove_all_and_add(payload.member, "Yellow")
 
         # this is a orange square
         if payload.emoji.name == "🟧":
-            role_remove_all_and_add(payload.member, "Orange")
+            await role_remove_all_and_add(payload.member, "Orange")
 
         # this is a green square
         if payload.emoji.name == "🟩":
-            role_remove_all_and_add(payload.member, "Green")
+            await role_remove_all_and_add(payload.member, "Green")
 
         if payload.emoji.name == "❌":
-            role_removal(payload.member, colour_list)
+            await role_removal(payload.member, colour_list)
+
 
 @bot.event
 async def on_member_join(member):
