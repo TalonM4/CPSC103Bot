@@ -6,11 +6,29 @@ from dotenv import load_dotenv
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="!", intents=intents)
 
+colour_list = ["Red", "Yellow", "Green", "Purple", "Orange"]
 
-def get_landing_role():
+
+def get_role(role_name):
     guild = discord.utils.get(bot.guilds, id=885385922361827358)
-    landing_role = discord.utils.get(guild.roles, id=885387549948911656)
-    return landing_role
+    role = discord.utils.get(guild.roles, name=role_name)
+    return role
+
+
+def role_removal(member, role_name_list):
+    roles = []
+    for role_name in role_name_list:
+        roles.append(get_role(role_name))
+    await member.remove_roles(*roles)
+
+
+def role_addition(member, role_name):
+    get_role(get_role(role_name))
+    await member.add_roles()
+
+def role_remove_all_and_add(member, role_name):
+    role_removal(member, colour_list)
+    role_addition(member, role_name)
 
 
 @bot.event
@@ -20,14 +38,39 @@ async def on_ready():
 
 @bot.event
 async def on_raw_reaction_add(payload):
+    # 1115 is the landing_pad channel
     if payload.channel_id == 885386228625711115:
         if payload.emoji.name == "✅":
-            await payload.member.remove_roles(get_landing_role())
+            await payload.member.remove_roles(get_role("landing pad"))
 
+    # 7614 is the colours channel
+    if payload.channel_id == 885539737291587614:
+        # this is a red square
+        if payload.emoji.name == "🟥":
+            role_remove_all_and_add(payload.member, "Red")
+
+        # this is a purple square
+        if payload.emoji.name == "🟪":
+            role_remove_all_and_add(payload.member, "Purple")
+
+        # this is a yellow square
+        if payload.emoji.name == "🟨":
+            role_remove_all_and_add(payload.member, "Yellow")
+
+        # this is a orange square
+        if payload.emoji.name == "🟧":
+            role_remove_all_and_add(payload.member, "Orange")
+
+        # this is a green square
+        if payload.emoji.name == "🟩":
+            role_remove_all_and_add(payload.member, "Green")
+
+        if payload.emoji.name == "❌":
+            role_removal(payload.member, colour_list)
 
 @bot.event
 async def on_member_join(member):
-    await member.add_roles(get_landing_role())
+    await member.add_roles(get_role("landing pad"))
 
 
 # shout out to https://github.com/Person314159/cs221bot for how to hide the bot token
