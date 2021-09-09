@@ -70,13 +70,12 @@ async def on_raw_reaction_add(payload):
 
 @bot.event
 async def on_message(message):
-    if message.channel.id == 885539737291587614:
-        if message.content == "!start up":
-            embedVar = discord.Embed(title="This is where you obtain colours", description="", color=0x123456)
-            embedVar.add_field(name="Simply react using the colour you want and you will receive that colour",
+    if message.content == "!start":
+        embedVar = discord.Embed(title="This is where you obtain colours", description="", color=0x123456)
+        embedVar.add_field(name="Simply react using the colour you want and you will receive that colour",
                                value="\u200b",
                                inline=False)
-            await message.channel.send(embed=embedVar)
+        await message.channel.send(embed=embedVar)
 
 
 @bot.event
