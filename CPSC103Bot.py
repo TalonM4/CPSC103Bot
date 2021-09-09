@@ -18,6 +18,7 @@ def get_role(role_name):
 async def role_removal(member, role_name_list):
     roles = []
     for role_name in role_name_list:
+        print("Role added to list successfully")
         roles.append(get_role(role_name))
     await member.remove_roles(*roles)
 
@@ -29,7 +30,9 @@ async def role_addition(member, role_name):
 
 async def role_remove_all_and_add(member, role_name):
     await role_removal(member, colour_list)
+    print("roles removed")
     await role_addition(member, role_name)
+    print("roles added")
 
 
 @bot.event
