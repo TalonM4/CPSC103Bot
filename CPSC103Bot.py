@@ -116,6 +116,8 @@ async def on_message(message):
         elif message_time.weekday() == 2 and message_time.hour > 15:
             await message.channel.send("The next office hours is at 11 am tomorrow")
 
+        await message.channel.send("https://canvas.ubc.ca/courses/78012/pages/office-hours?module_item_id=3314512")
+
 
 # shout out to https://github.com/Person314159/cs221bot for how to hide the bot token
 load_dotenv()
