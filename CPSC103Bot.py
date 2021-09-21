@@ -1,4 +1,6 @@
 import os
+from datetime import timedelta
+
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
@@ -80,7 +82,7 @@ async def active_oh_message(message):
 @bot.event
 async def on_message(message):
     if message.content == "!office-hours":
-        message_time = message.created_at.now()
+        message_time = message.created_at.now() - timedelta(hours=7)
         if message_time.weekday() == 0 and message_time.hour < 12:
             await message.channel.send("The next office hours is at noon")
         elif message_time.weekday == 0 and 12 <= message_time.hour < 14:
@@ -112,7 +114,7 @@ async def on_message(message):
         elif message_time.weekday() == 2 and message_time.hour < 15:
             await message.channel.send("The next office hours is at 3")
         elif message_time.weekday() == 2 and message_time.hour == 15:
-            await  active_oh_message(message)
+            await active_oh_message(message)
         elif message_time.weekday() == 2 and message_time.hour > 15:
             await message.channel.send("The next office hours is at 11 am tomorrow")
 
