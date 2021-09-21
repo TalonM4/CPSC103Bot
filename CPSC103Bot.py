@@ -74,6 +74,49 @@ async def on_member_join(member):
     await member.add_roles(get_role("landing pad"))
 
 
+async def active_oh_message(message):
+    await message.channel.send("There is an active office hour")
+
+@bot.event
+async def on_message(message):
+    if message.content == "!office-hours":
+        message_time = message.created_at.now()
+        if message_time.weekday() == 0 and message_time.hour < 12:
+            await message.channel.send("The next office hours is at noon")
+        elif message_time.weekday == 0 and 12 <= message_time.hour < 14:
+            await active_oh_message(message)
+        elif message_time.weekday() == 0 and 14 <= message_time.hour < 17:
+            await message.channel.send("The next office hours is at 5 pm")
+        elif message_time.weekday() == 0 and 17 <= message_time.hour < 19:
+            await active_oh_message(message)
+        elif message_time.weekday() == 0 and message_time.hour >= 19:
+            await message.channel.send("The next office hours is at 11 am tomorrow")
+        elif message_time.weekday() == 1 and message_time.hour < 11:
+            await message.channel.send("The next office hours is at 11")
+        elif message_time.weekday() == 1 and message_time.hour == 11:
+            await active_oh_message(message)
+        elif message_time.weekday() == 1 and 12 <= message_time.hour < 15:
+            await message.channel.send("The next office hours is at 3 pm")
+        elif message_time.weekday() == 1 and message_time.hour == 15:
+            await active_oh_message(message)
+        elif message_time.weekday() == 1 and message_time.hour == 16:
+            await message.channel.send("There might be an active office hours")
+        elif message_time.weekday() == 1 and message_time.hour < 19:
+            await active_oh_message(message)
+        elif message_time.weekday() == 1 and message_time.hour >= 19:
+            await message.channel.send("The next office hours is at 11 am tomorrow")
+        elif message_time.weekday() == 2 and message_time.hour < 11:
+            await message.channel.send("The next office hours is at 11 am")
+        elif message_time.weekday() == 2 and 11 <= message_time.hour < 13:
+            await active_oh_message(message)
+        elif message_time.weekday() == 2 and message_time.hour < 15:
+            await message.channel.send("The next office hours is at 3")
+        elif message_time.weekday() == 2 and message_time.hour == 15:
+            await  active_oh_message(message)
+        elif message_time.weekday() == 2 and message_time.hour > 15:
+            await message.channel.send("The next office hours is at 11 am tomorrow")
+
+
 # shout out to https://github.com/Person314159/cs221bot for how to hide the bot token
 load_dotenv()
 token = os.getenv("BOT_KEY")
