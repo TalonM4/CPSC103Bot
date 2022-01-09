@@ -12,7 +12,7 @@ colour_list = ["Red", "Yellow", "Green", "Purple", "Orange"]
 
 
 def get_role(role_name):
-    guild = discord.utils.get(bot.guilds, id=885385922361827358)
+    guild = discord.utils.get(bot.guilds, id=928749914207432745)
     role = discord.utils.get(guild.roles, name=role_name)
     return role
 
@@ -80,6 +80,13 @@ async def on_member_join(member):
 async def on_message(message):
     if message.content == "!office-hours":
         await message.channel.send("Office Hours start on January 31st")
+
+    if message.content == "!start":
+        embedVar = discord.Embed(title="This is where you obtain colours", description="", color=0x123456)
+        embedVar.add_field(name="Simply react using the colour you want and you will receive that colour",
+                               value="\u200b",
+                               inline=False)
+        await message.channel.send(embed=embedVar)
 
 
 # shout out to https://github.com/Person314159/cs221bot for how to hide the bot token
