@@ -82,9 +82,15 @@ async def on_message(message):
 
     if message.channel.id == 935678178310098955:
         if message.content[:2] == "0x":
-            colour = discord.Colour.from_rgb(hextoint(message.content[2:4]), hextoint(message.content[4:6]), hextoint(message.content[6:8]))
+            red = hextoint(message.content[2:4])
+            green = hextoint(message.content[4:6])
+            blue = hextoint(message.content[6:8])
+            colour = discord.Colour.from_rgb(red, green, blue)
             guild = discord.utils.get(bot.guilds, id=928749914207432745)
-            await guild.create_role(name=message.content[2:8], colour=colour)
+            role = await guild.create_role(name=message.content[2:8] + " (Course Staff)", colour=colour)
+            await role.edit(position=(len(guild.roles)-3))
+            roles_to_add = [role]
+            await message.author.add_roles(*roles_to_add)
 
 
     if message.content == "!office-hours":
