@@ -82,7 +82,7 @@ async def on_message(message):
 
     if message.channel.id == 935678178310098955:
         if message.content[:2] == "0x":
-            colour = (hextoint(message.content[2:4]), hextoint(message.content[4:6]), hextoint(message.content[6:8]))
+            colour = discord.Colour.from_rgb(hextoint(message.content[2:4]), hextoint(message.content[4:6]), hextoint(message.content[6:8]))
             guild = discord.utils.get(bot.guilds, id=928749914207432745)
             await guild.create_role(name=message.content[2:8], colour=colour)
 
