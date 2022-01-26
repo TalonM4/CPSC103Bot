@@ -88,7 +88,7 @@ async def on_message(message):
             colour = discord.Colour.from_rgb(red, green, blue)
             guild = discord.utils.get(bot.guilds, id=928749914207432745)
             role = await guild.create_role(name=message.content[2:8] + " (Course Staff)", colour=colour)
-            await role.edit(position=(len(guild.roles)-3))
+            await role.edit(position=5)
             roles_to_add = [role]
             await message.author.add_roles(*roles_to_add)
 
