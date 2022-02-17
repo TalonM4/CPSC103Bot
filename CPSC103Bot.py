@@ -100,7 +100,7 @@ async def on_message(message):
             await message.author.add_roles(*roles_to_add)
 
     if message.content == "!office-hours":
-        if message.channel.id == 928751849006333952:
+        if message.channel.id == 932531585306202154:
             await message.channel.send(
                 "https://canvas.ubc.ca/courses/83388/pages/schedule-tutorials-and-office-hours?module_item_id=3896064")
 
