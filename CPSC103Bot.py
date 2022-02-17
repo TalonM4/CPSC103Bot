@@ -9,8 +9,10 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 colour_list = ["Red", "Yellow", "Green", "Purple", "Orange"]
 
+
 def hextoint(s):
-    return int("0x"+s, base=16)
+    return int("0x" + s, base=16)
+
 
 def get_role(role_name):
     guild = discord.utils.get(bot.guilds, id=928749914207432745)
@@ -71,6 +73,12 @@ async def on_raw_reaction_add(payload):
         if payload.emoji.name == "❌":
             await role_removal(payload.member, colour_list)
 
+        if payload.emoji.name == "1️⃣":
+            await role_addition(payload.member, "Section 201")
+
+        if payload.emoji.name == "2️⃣":
+            await role_addition(payload.member, "Section 202")
+
 
 @bot.event
 async def on_member_join(member):
@@ -79,7 +87,6 @@ async def on_member_join(member):
 
 @bot.event
 async def on_message(message):
-
     if message.channel.id == 935678178310098955:
         if message.content[:2] == "0x":
             red = hextoint(message.content[2:4])
@@ -88,19 +95,19 @@ async def on_message(message):
             colour = discord.Colour.from_rgb(red, green, blue)
             guild = discord.utils.get(bot.guilds, id=928749914207432745)
             role = await guild.create_role(name=message.content[2:8] + " (Course Staff)", colour=colour)
-            await role.edit(position=len(guild.roles)-2)
+            await role.edit(position=len(guild.roles) - 2)
             roles_to_add = [role]
             await message.author.add_roles(*roles_to_add)
 
-
     if message.content == "!office-hours":
-        await message.channel.send("Office Hours start on January 31st")
+        await message.channel.send(
+            "https://canvas.ubc.ca/courses/83388/pages/schedule-tutorials-and-office-hours?module_item_id=3896064")
 
     if message.content == "!start":
         embedVar = discord.Embed(title="This is where you obtain colours", description="", color=0x123456)
         embedVar.add_field(name="Simply react using the colour you want and you will receive that colour",
-                               value="\u200b",
-                               inline=False)
+                           value="\u200b",
+                           inline=False)
         await message.channel.send(embed=embedVar)
 
 
