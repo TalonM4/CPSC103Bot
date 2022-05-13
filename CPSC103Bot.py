@@ -9,13 +9,18 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 colour_list = ["Red", "Yellow", "Green", "Purple", "Orange"]
 
+landing_pad_channel_id = 974327554188144640
+colour_channel_id = 974717469975515166
+guild_id = 974327441323593748
+
+
 
 def hextoint(s):
     return int("0x" + s, base=16)
 
 
 def get_role(role_name):
-    guild = discord.utils.get(bot.guilds, id=928749914207432745)
+    guild = discord.utils.get(bot.guilds, guild_id)
     role = discord.utils.get(guild.roles, name=role_name)
     return role
 
@@ -44,12 +49,12 @@ async def on_ready():
 @bot.event
 async def on_raw_reaction_add(payload):
     # 1115 is the landing_pad channel
-    if payload.channel_id == 929587123567358002:
+    if payload.channel_id == landing_pad_channel_id:
         if payload.emoji.name == "✅":
             await payload.member.remove_roles(get_role("landing pad"))
 
     # 7614 is the colours channel
-    if payload.channel_id == 929589439255154711:
+    if payload.channel_id == colour_channel_id:
         # this is a red square
         if payload.emoji.name == "🟥":
             await role_remove_all_and_add(payload.member, "Red")
@@ -87,7 +92,7 @@ async def on_member_join(member):
 
 @bot.event
 async def on_message(message):
-    if message.channel.id == 935678178310098955:
+    if message.channel.id == 974714336599769139:
         if message.content[:2] == "0x":
             red = hextoint(message.content[2:4])
             green = hextoint(message.content[4:6])
@@ -99,10 +104,10 @@ async def on_message(message):
             roles_to_add = [role]
             await message.author.add_roles(*roles_to_add)
 
-    if message.content == "!office-hours":
-        if message.channel.id == 932531585306202154:
-            await message.channel.send(
-                "https://canvas.ubc.ca/courses/83388/pages/schedule-tutorials-and-office-hours?module_item_id=3896064")
+    # if message.content == "!office-hours":
+    #     if message.channel.id == 932531585306202154:
+    #         await message.channel.send(
+    #             "https://canvas.ubc.ca/courses/83388/pages/schedule-tutorials-and-office-hours?module_item_id=3896064")
 
     if message.content == "!start":
         embedVar = discord.Embed(title="This is where you obtain colours", description="", color=0x123456)
