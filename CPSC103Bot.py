@@ -20,7 +20,7 @@ def hextoint(s):
 
 
 def get_role(role_name):
-    guild = discord.utils.get(bot.guilds, guild_id)
+    guild = discord.utils.get(bot.guilds, id=guild_id)
     role = discord.utils.get(guild.roles, name=role_name)
     return role
 
@@ -48,7 +48,6 @@ async def on_ready():
 
 @bot.event
 async def on_raw_reaction_add(payload):
-    # 1115 is the landing_pad channel
     if payload.channel_id == landing_pad_channel_id:
         if payload.emoji.name == "✅":
             await payload.member.remove_roles(get_role("landing pad"))
